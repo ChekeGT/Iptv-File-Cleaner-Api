@@ -23,7 +23,7 @@ from rest_framework.mixins import (
 )
 
 # Permissions
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from .permissions import IsAccountOwner
 
 
@@ -50,3 +50,12 @@ class UserManagementViewSet(RetrieveModelMixin, UpdateModelMixin,GenericViewSet)
             }
 
             return Response(data=data, status=HTTP_201_CREATED)
+
+    def get_permissions(self):
+        """Handles getting permissions in base of the action"""
+
+        if self.action in ['retrieve', 'update', 'partial_update']:
+            return [IsAccountOwner(), IsAuthenticated()]
+
+        else:
+            return [AllowAny()]
