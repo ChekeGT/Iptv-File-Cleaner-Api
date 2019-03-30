@@ -42,6 +42,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     'rest_framework',
+    'rest_framework_simplejwt',
 ]
 LOCAL_APPS = [
     'IptvFileCleaner.users.apps.UsersAppConfig',
@@ -138,3 +139,10 @@ ADMIN_URL = 'admin/'
 
 # Users
 AUTH_USER_MODEL = 'users.User'
+
+# Django REST Framework
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}

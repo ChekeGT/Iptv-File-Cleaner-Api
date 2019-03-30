@@ -30,5 +30,5 @@ class UserManagementViewSet(ViewSet):
             data = {
                 'user': UserModelSerializer(user).data
             }
-            import ipdb; ipdb.set_trace()
+
             return Response(data=data, status=HTTP_201_CREATED)

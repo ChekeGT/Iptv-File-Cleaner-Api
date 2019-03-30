@@ -4,7 +4,7 @@
 from rest_framework import serializers
 
 # Django
-from django.contrib.auth import authenticate, password_validation
+from django.contrib.auth import password_validation
 
 # Models
 from .models import User
