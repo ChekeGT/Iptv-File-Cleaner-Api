@@ -23,6 +23,6 @@ class User(AbstractUser):
         }
     )
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'username'
 
-    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
+    REQUIRED_FIELDS = ['email', 'first_name', 'last_name']
