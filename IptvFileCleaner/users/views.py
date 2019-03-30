@@ -1,7 +1,7 @@
 """Users app views module."""
 
 # Django REST Framework
-from rest_framework.viewsets import ViewSet, GenericViewSet
+from rest_framework.viewsets import GenericViewSet
 from rest_framework.decorators import action
 from rest_framework.response import  Response
 
@@ -18,7 +18,8 @@ from .models import User
 
 # Mixins
 from rest_framework.mixins import (
-    RetrieveModelMixin
+    RetrieveModelMixin,
+    UpdateModelMixin
 )
 
 # Permissions
@@ -26,8 +27,13 @@ from rest_framework.permissions import IsAuthenticated
 from .permissions import IsAccountOwner
 
 
-class UserManagementViewSet(ViewSet):
+class UserManagementViewSet(RetrieveModelMixin, UpdateModelMixin,GenericViewSet):
     """Manages all the views related with the managament of an user."""
+
+    serializer_class = UserModelSerializer
+    queryset = User.objects.all()
+    permission_classes = [IsAccountOwner, IsAuthenticated]
+    lookup_field = 'username'
 
     @action(detail=False, methods=['post'])
     def signup(self, request):
@@ -44,12 +50,3 @@ class UserManagementViewSet(ViewSet):
             }
 
             return Response(data=data, status=HTTP_201_CREATED)
-
-
-class UserViewSet(RetrieveModelMixin, GenericViewSet):
-    """User model related views."""
-
-    serializer_class = UserModelSerializer
-    queryset = User.objects.all()
-    permission_classes = [IsAccountOwner, IsAuthenticated]
-    lookup_field = 'username'

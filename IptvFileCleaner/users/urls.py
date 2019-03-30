@@ -7,14 +7,13 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
 # Views
-from .views import UserManagementViewSet, UserViewSet
+from .views import UserManagementViewSet
 
 # Json Web Tokens
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 router = DefaultRouter()
 router.register(r'users', UserManagementViewSet, base_name='users')
-router.register(r'users', UserViewSet, base_name='user')
 
 app_name = 'users'
 
